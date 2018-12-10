@@ -1,0 +1,131 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+  min-width: 1100px;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  background: #f3f5f6;
+  box-sizing: border-box;
+}
+
+#app {
+  font-family: Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: black;
+  font-size: 14px;
+  height: 100%;
+  width: 100%;
+}
+
+p {
+  margin: 0;
+}
+
+a,
+a:hover,
+a:visited,
+a:link,
+a:active {
+  text-decoration: none;
+  color: #07c;
+}
+
+// elementui 样式修改
+.el-table th {
+  background: #f7f7f7;
+}
+// el-tag增加cursor属性
+.el-tag {
+  cursor: pointer;
+}
+
+.el-dialog {
+  z-index: 9999;
+}
+
+// 全局的disabled 的样式修改
+.el-input.is-disabled .el-input__inner,
+.el-checkbox__input.is-disabled + span.el-checkbox__label,
+.el-textarea.is-disabled .el-textarea__inner {
+  color: #5a5e66;
+}
+.el-checkbox {
+  font-weight: normal;
+}
+.el-checkbox__input.is-disabled.is-checked .el-checkbox__inner::after {
+  border-color: #5a5e66;
+}
+
+// elementui的颜色修改
+.el-table,
+.el-checkbox__label,
+.el-form-item__label {
+  color: #333;
+}
+
+.color-grey {
+  color: grey;
+}
+.bd-c-ccc {
+  border-color: #ccc;
+}
+
+.el-textarea.is-disabled .el-textarea__inner {
+  color: #333 !important;
+}
+
+.el-table th {
+  background: #f7f7f7 !important;
+}
+
+.el-tooltip__popper.is-dark {
+  width: 220px !important;
+}
+.clear-float {
+  &::after {
+    display: block;
+    content: '';
+    clear: both;
+  }
+}
+// el-autocomplete组件，使用scoped slot自定义输入建议的模板
+// 使用以下样式，对建议列表的样式进行调整。具体使用方式，参考element-ui文档
+// http://element-cn.eleme.io/2.2/#/zh-CN/component/input#zi-ding-yi-mo-ban
+.el-autocomplete-custom-template {
+  li {
+    line-height: normal;
+    padding-top: 7px;
+    padding-bottom: 7px;
+  }
+}
+
+.pic-upload {
+  .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    width: 178px;
+    height: 178px;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409eff;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+  }
+}
