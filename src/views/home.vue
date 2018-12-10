@@ -1,9 +1,15 @@
 <template lang='pug'>
-div home-page
+.home
+  Navmenu
 </template>
 
 <script>
+import Navmenu from "@/components/Navmenu.vue";
+
 export default {
+  components: {
+    Navmenu
+  },
   name: "home",
   methods: {
     save() {
