@@ -1,5 +1,5 @@
 export default {
-  oUser: (state, data) => {
+  loginMut: (state, data) => {
     state.oUser = data;
   }
 };
