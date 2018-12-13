@@ -60,15 +60,6 @@ export default Vue.extend({
     },
     fnClickLogin() {
       let { name, password } = this.oForm;
-      // this.$dc.user
-      //   .login({ data: { name, password } })
-      //   .then(res => {
-      //     this.$message.success(res.state.msg);
-      //     this.$router.push({ path: "/" });
-      //   })
-      //   .catch(err => {
-      //     this.$message.error(err.response.data.state.msg);
-      //   });
       this.$store
         .dispatch("loginAct", { data: { name, password } })
         .then(res => {
