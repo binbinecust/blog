@@ -3,21 +3,26 @@
   Navmenu
 </template>
 
-<script>
+<script lang='ts'>
 import Navmenu from "@/components/Navmenu.vue";
+import Vue from "vue";
 
-export default {
+export default Vue.extend({
   components: {
     Navmenu
   },
-  name: "home",
-  methods: {
-    save() {
-      console.log("this is binbin test");
-    }
+  data() {
+    return {};
   },
-  mounted() {
-    this.save();
+  methods: {
+    // ======================事件处理函数======================
+    // ======================业务逻辑函数======================
+    // ========================纯函数=========================
+    // ======================网络请求函数======================
+    // =======================初始化函数=======================
   }
-};
+});
 </script>
+
+<style lang='scss' scoped>
+</style>
