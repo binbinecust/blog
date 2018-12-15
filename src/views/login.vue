@@ -41,7 +41,7 @@ export default Vue.extend({
   },
   computed: {
     ...mapState({
-      oUser: state => {
+      oUser: (state: any) => {
         return state.oUser;
       }
     })
@@ -51,7 +51,7 @@ export default Vue.extend({
     fnClickRegiste() {
       this.$dc.user
         .signup({ data: this.oForm })
-        .then(res => {
+        .then((res: any) => {
           this.$message.success(res.state.msg);
         })
         .catch(err => {
@@ -63,6 +63,7 @@ export default Vue.extend({
       this.$store
         .dispatch("loginAct", { data: { name, password } })
         .then(res => {
+          localStorage.setItem("isLogin", "true");
           this.$message.success(res.state.msg);
           this.$router.push({ path: "/" });
         })

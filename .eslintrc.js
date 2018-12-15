@@ -28,4 +28,4 @@ module.exports = {
     quotes: ['off'],
     'space-before-function-paren': ['off']
   }
-};
+}

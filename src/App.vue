@@ -1,16 +1,28 @@
-<template>
-  <div id="app">
-    <router-view/>
-  </div>
+<template lang='pug'>
+#app
+  router-view
 </template>
 
-<script>
-export default {
-  name: "app"
-};
+<script lang='ts'>
+/// <reference path="./fedc/index.d.ts" />
+import Vue from "vue";
+
+export default Vue.extend({
+  name: "app",
+  data() {
+    return {};
+  },
+  methods: {
+    // ======================事件处理函数======================
+    // ======================业务逻辑函数======================
+    // ========================纯函数=========================
+    // ======================网络请求函数======================
+    // =======================初始化函数=======================
+  }
+});
 </script>
 
-<style>
+<style lang='scss'>
 @import "./assets/css/atom-common.min.css";
 @import "./assets/css/atom-pc.1.min.css";
 @import "./assets/css/atom-pc.2.min.css";

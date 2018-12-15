@@ -1,14 +1,14 @@
-import { User } from './apis/user.ts';
-import Vue from 'vue';
+import { User } from './apis/user'
+import Vue from 'vue'
 
 const oDataCenter = {
   user: new User()
-};
+}
 
-const oFedc = {};
+const oFedc: any = {}
 
 oFedc.install = function(vue, option) {
-  Vue.prototype.$dc = oDataCenter;
-};
+  Vue.prototype.$dc = oDataCenter
+}
 
-export default oFedc;
+export default oFedc

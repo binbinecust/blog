@@ -1,15 +1,15 @@
-import Vue from 'vue';
-import Router from 'vue-router';
+import Vue from 'vue'
+import Router from 'vue-router'
 
-import login from './login.js';
-import home from './home.js';
+import login from './login'
+import home from './home'
 
-Vue.use(Router);
+Vue.use(Router)
 
 const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [login, home]
-});
+})
 
-export default router;
+export default router

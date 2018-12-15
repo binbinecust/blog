@@ -1,11 +1,12 @@
-import BaseAPI from '../base';
-import fnPureProcessResourceData from '../utils.ts';
+import BaseAPI from '../base'
+import fnPureProcessResourceData from '../utils'
 
 class User extends BaseAPI {
+  sSignup: string
   constructor() {
-    super();
-    this.sRetrieveUrl = '/api/login';
-    this.sSignup = '/api/signup';
+    super()
+    this.sRetrieveUrl = '/api/login'
+    this.sSignup = '/api/signup'
   }
 
   login(option) {
@@ -13,7 +14,7 @@ class User extends BaseAPI {
       url: this.sRetrieveUrl,
       method: 'post',
       ...option
-    });
+    })
   }
 
   signup(option) {
@@ -21,8 +22,8 @@ class User extends BaseAPI {
       url: this.sSignup,
       method: 'post',
       ...option
-    });
+    })
   }
 }
 
-export { User };
+export { User }
