@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import Promise from 'promise'
 
 const vm = new Vue()
 
@@ -7,8 +8,8 @@ export default {
     return new Promise((resolve, reject) => {
       vm.$dc.user
         .login(data)
-        .then(res => {
-          commit('loginMut', res)
+        .then((res: any) => {
+          commit('loginMut', res.data.user)
           resolve(res)
         })
         .catch(err => {

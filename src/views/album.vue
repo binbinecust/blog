@@ -1,6 +1,5 @@
 <template lang='pug'>
-.home-page
-
+div album
 </template>
 
 <script lang='ts'>

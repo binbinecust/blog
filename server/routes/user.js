@@ -1,18 +1,18 @@
-const UserModel = require('../models/user');
-const router = require('koa-router')();
-const bcrypt = require('bcryptjs');
+const UserModel = require('../models/user')
+const router = require('koa-router')()
+const bcrypt = require('bcryptjs')
 
 router.post('/api/signup', async (ctx, next) => {
-  let { name, email, tel, password } = ctx.request.body;
-  const salt = await bcrypt.genSalt(10);
-  password = await bcrypt.hash(password, salt);
+  let { name, email, tel, password } = ctx.request.body
+  const salt = await bcrypt.genSalt(10)
+  password = await bcrypt.hash(password, salt)
   try {
     let result = await UserModel.create({
       name,
       email,
       tel,
       password
-    });
+    })
     ctx.body = {
       result: {
         data: result
@@ -20,10 +20,10 @@ router.post('/api/signup', async (ctx, next) => {
       state: {
         msg: '注册成功啦，恭喜哈'
       }
-    };
+    }
   } catch (err) {
     if (err.code === 11000) {
-      ctx.status = 500;
+      ctx.status = 500
       ctx.body = {
         result: {
           data: ''
@@ -31,43 +31,54 @@ router.post('/api/signup', async (ctx, next) => {
         state: {
           msg: '该用户已存在'
         }
-      };
+      }
     }
   }
-});
+})
 
 router.post('/api/login', async (ctx, next) => {
-  const { name, password } = ctx.request.body;
-  const user = await UserModel.findOne({ name });
-  console.log(user);
+  const { name, password } = ctx.request.body
+  const user = await UserModel.findOne({ name })
+  console.log(user)
   if (user) {
-    const isSame = await bcrypt.compare(password, user.password);
+    const isSame = await bcrypt.compare(password, user.password)
     if (isSame) {
       ctx.session.user = {
         _id: user._id,
         name: user.name,
         isAdmin: user.isAdmin,
         email: user.email
-      };
+      }
       ctx.body = {
-        data: {},
+        data: {
+          user: {
+            id: user._id,
+            name: user.name,
+            tel: user.tel,
+            email: user.email,
+            isAdmin: user.isAdmin,
+            avatar: user.avatar || 'http://localhost:9999/qyc.jpeg'
+          }
+        },
         state: {
           msg: '登录成功'
         }
-      };
+      }
     }
   } else {
-    ctx.status = 500;
+    ctx.status = 500
     ctx.body = {
       data: {},
       state: {
         msg: '用户名或密码错误'
       }
-    };
+    }
   }
-});
 
-module.exports = router;
+  router.post('/api/upload', async (ctx, netx) => {})
+})
+
+module.exports = router
 
 // module.exports = {
 //   async signup (ctx, next) {

@@ -2,14 +2,14 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import login from './login'
-import home from './home'
+import main from './main'
 
 Vue.use(Router)
 
 const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes: [login, home]
+  routes: [login, main]
 })
 
 export default router

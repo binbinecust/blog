@@ -1,6 +1,5 @@
 <template lang='pug'>
-.home-page
-
+div square
 </template>
 
 <script lang='ts'>

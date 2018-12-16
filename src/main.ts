@@ -11,14 +11,16 @@ Vue.use(oFedc)
 
 router.beforeEach((to, from, next) => {
   let isLogin = localStorage.getItem('isLogin')
-  if (isLogin) {
+  if (isLogin === 'true') {
     store.state.isLogin = true
+    let oUser = <any>localStorage.getItem('oUser')
+    store.state.oUser = JSON.parse(oUser)
     next()
-    if (!to.meta.isLogin) {
+    if (to.path === '/login') {
       // tslint-disable-next-line
       Message.warning('请先退出登录！')
       next({
-        path: '/'
+        path: '/home'
       })
     }
   } else {

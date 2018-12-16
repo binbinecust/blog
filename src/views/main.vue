@@ -1,12 +1,18 @@
 <template lang='pug'>
-.home-page
-
+.home
+  Navmenu
+  .main-view
+    router-view
 </template>
 
 <script lang='ts'>
+import Navmenu from "@/components/Navmenu.vue";
 import Vue from "vue";
 
 export default Vue.extend({
+  components: {
+    Navmenu
+  },
   data() {
     return {};
   },
@@ -21,4 +27,10 @@ export default Vue.extend({
 </script>
 
 <style lang='scss' scoped>
+.main-view {
+  margin: 0 15%;
+  background: #fff;
+  height: calc(100vh - 60px);
+  padding: 40px 20px;
+}
 </style>
