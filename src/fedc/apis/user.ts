@@ -7,6 +7,7 @@ class User extends BaseAPI {
     super()
     this.sRetrieveUrl = '/api/login'
     this.sSignup = '/api/signup'
+    this.sUpdateUrl = '/api/save'
   }
 
   login(option) {
@@ -20,6 +21,14 @@ class User extends BaseAPI {
   signup(option) {
     return fnPureProcessResourceData({
       url: this.sSignup,
+      method: 'post',
+      ...option
+    })
+  }
+
+  save(option) {
+    return fnPureProcessResourceData({
+      url: this.sUpdateUrl,
       method: 'post',
       ...option
     })

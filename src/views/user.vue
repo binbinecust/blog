@@ -20,14 +20,13 @@
       el-input(v-model="oForm.password" placeholder="请输入密码" type="password")
     el-form-item(label="上传头像：")
       el-upload(
-        action=""
+        action="/api/upload"
         list-type="picture-card"
-        :before-upload="handleBeforeUpload"
-        :on-preview="handlePreview"
-        :on-remove="handleRemove"
-        multiple
+        :on-success="handleSuccess"
         :limit="2"
         :show-file-list="false"
+        name="avatar"
+        accept="image/png, image/jpeg, image/jpg"
       )
         img.avatar(:src="imageUrl" v-if="imageUrl")
         i.el-icon-plus(v-else)
@@ -40,15 +39,15 @@
 </template>
 
 <script lang='ts'>
-import Vue from "vue";
-import { mapState } from "vuex";
+import Vue from 'vue';
+import { mapState } from 'vuex';
 
 export default Vue.extend({
   data() {
     return {
       isSaving: false,
       dialogVisible: false,
-      imageUrl: "",
+      imageUrl: '',
       fileList: [],
       oEdit: {
         isTelEdit: false,
@@ -56,9 +55,9 @@ export default Vue.extend({
         isEmailEdit: false
       },
       oForm: {
-        email: "",
-        tel: "",
-        password: ""
+        email: '',
+        tel: '',
+        password: ''
       },
       oRules: {}
     };
@@ -72,18 +71,36 @@ export default Vue.extend({
   },
   methods: {
     // ======================事件处理函数======================
-    handleBeforeUpload() {},
-    handlePreview() {},
-    handleRemove() {},
-    save() {},
+    handleSuccess(res, file) {
+      this.$message.success(res.result.state.msg);
+      this.imageUrl = res.result.data.url;
+    },
+    save() {
+      this.fnNetUSave();
+    },
     back() {
-      this.$router.push("/home");
+      this.$router.push('/home');
     },
     // ======================业务逻辑函数======================
     // ========================纯函数=========================
     // ======================网络请求函数======================
     fnNetUSave() {
       this.isSaving = true;
+      let oData = {
+        name: this.oUser.name,
+        tel: this.oForm.tel,
+        email: this.oForm.email,
+        password: this.oForm.password,
+        avatar: this.imageUrl
+      };
+      this.$dc.user
+        .save({ data: oData })
+        .then((res: any) => {
+          this.$store.commit('loginMut', res.data.user);
+          this.$message.success(res.state.msg);
+        })
+        .catch(err => {})
+        .done(() => (this.isSaving = false));
     },
     // =======================初始化函数=======================
     initData() {

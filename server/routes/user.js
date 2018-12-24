@@ -39,7 +39,7 @@ router.post('/api/signup', async (ctx, next) => {
 router.post('/api/login', async (ctx, next) => {
   const { name, password } = ctx.request.body
   const user = await UserModel.findOne({ name })
-  console.log(user)
+  console.log(user, 'login')
   if (user) {
     const isSame = await bcrypt.compare(password, user.password)
     if (isSame) {
@@ -74,8 +74,33 @@ router.post('/api/login', async (ctx, next) => {
       }
     }
   }
+})
 
-  router.post('/api/upload', async (ctx, netx) => {})
+router.post('/api/save', async (ctx, netx) => {
+  let { password, email, tel, avatar, name } = ctx.request.body
+  let doc = { email, tel, avatar, name }
+  if (password) {
+    const salt = await bcrypt.genSalt(10)
+    password = await bcrypt.hash(password, salt)
+    doc.password = password
+  }
+  await UserModel.updateOne({ name }, doc)
+  const user = await UserModel.findOne({ name })
+  ctx.body = {
+    data: {
+      user: {
+        id: user._id,
+        name: user.name,
+        tel: user.tel,
+        email: user.email,
+        isAdmin: user.isAdmin,
+        avatar: user.avatar
+      }
+    },
+    state: {
+      msg: '保存成功'
+    }
+  }
 })
 
 module.exports = router

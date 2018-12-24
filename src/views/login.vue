@@ -140,8 +140,6 @@ export default Vue.extend({
           this.$store
             .dispatch("loginAct", { data: { name, password } })
             .then(res => {
-              localStorage.setItem("isLogin", "true");
-              localStorage.setItem("oUser", JSON.stringify(res.data.user));
               this.$message.success(res.state.msg);
               this.$router.push({ path: "/home" });
               this.isLoginLoading = false;

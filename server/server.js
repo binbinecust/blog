@@ -1,5 +1,5 @@
 const Koa = require('koa')
-const bodyParser = require('koa-bodyparser')
+// const bodyParser = require('koa-bodyparser')
 const koaJson = require('koa-json')
 const logger = require('koa-logger')
 const onerror = require('koa-onerror')
@@ -8,6 +8,7 @@ const cors = require('@koa/cors')
 const mongoose = require('mongoose')
 const session = require('koa-session')
 const path = require('path')
+const koaBody = require('koa-body')
 
 const routes = require('./routes/index.js')
 const config = require('./config/config')
@@ -22,11 +23,21 @@ mongoose.connect(
   { useNewUrlParser: true }
 )
 app.use(cors())
+
 app.use(
-  bodyParser({
-    enableTypes: ['json', 'form', 'text']
+  koaBody({
+    multipart: true,
+    formidable: {
+      maxFileSize: 200 * 1024 * 1024 // 设置上传文件大小最大限制，默认2M
+    }
   })
 )
+// app.use(
+//   bodyParser({
+//     enableTypes: ['json', 'form', 'text']
+//   })
+// )
+
 app.keys = ['mengxi']
 
 app.use(
@@ -42,7 +53,6 @@ app.use(
 app.use(koaJson())
 app.use(logger())
 app.use(koastatic(path.join(__dirname, 'assets')))
-console.log(path.join(__dirname, 'assets'))
 
 app.use(async (ctx, next) => {
   const start = new Date()

@@ -6,8 +6,8 @@
 </template>
 
 <script lang='ts'>
-import Navmenu from "@/components/Navmenu.vue";
-import Vue from "vue";
+import Navmenu from '@/components/Navmenu.vue';
+import Vue from 'vue';
 
 export default Vue.extend({
   components: {
@@ -30,7 +30,7 @@ export default Vue.extend({
 .main-view {
   margin: 0 15%;
   background: #fff;
-  height: calc(100vh - 60px);
+  min-height: calc(100vh - 60px);
   padding: 40px 20px;
 }
 </style>
