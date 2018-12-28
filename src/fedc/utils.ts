@@ -6,6 +6,7 @@ import axios from 'axios';
 
 // 用法：https://github.com/pillarjs/path-to-regexp
 import pathToRegExp from 'path-to-regexp';
+import { debug } from 'util';
 
 const vm = new Vue();
 /**
@@ -33,7 +34,11 @@ function fnPureProcessResourceData(option) {
           vm.$message.error('登录信息失效');
           location.href = '/login';
         } else if (!option.bNotCommonError && oError.message) {
-          vm.$message.error(oError.message || '未知错误');
+          if (oError.response && oError.response.data && oError.response.data.state && oError.response.data.state.msg) {
+            vm.$message.error(oError.response.data.state.msg);
+          } else {
+            vm.$message.error(oError.message || '未知错误');
+          }
         }
         reject(oError);
       });

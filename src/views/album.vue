@@ -12,8 +12,8 @@ div
     i.el-icon-plus
   el-card.mt-50(v-if="aImgList.length")
     el-card.w-200.mr-10.mb-10.inbl(v-for="item in aImgList")
-      .tlc
-        img.max-w-p100(:src="item.url" @click="fnShowImgModal(item.url)")
+      .tlc.h-200.lh-200
+        img.max-w-p100.max-h-p100.vtal-md(:src="item.url" @click="fnShowImgModal(item.url)")
       .tlc.mt-5 {{ item.name }}
     .tlr.mt-10
       el-pagination(

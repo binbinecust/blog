@@ -3,20 +3,21 @@ div
   el-row(:gutter="20")
     el-col(:span="12")
       span.mr-10 关键词：
-      el-input(v-model="keyWord" placeholder="请输入关键词，多个关键词请用空格隔开" @keyup.enter.native="fnClickSearch")
+      el-input(v-model="keyWord" placeholder="请输入关键词，多个关键词请用空格隔开，支持任何语言" @keyup.enter.native="fnClickSearch" clearable style="width: calc(100% - 70px)")
     el-col.tlc(:span="12")
       el-button(type="primary" size="small" @click="fnClickSearch" :loading="bIsSearching") 点击搜索
-  el-card(v-loading="bIsListLoading")
-    el-card.w-200.mr-10.mb-10.inbl(v-for="item in aImgList" :key="item.url")
-      .tlc
-        img.max-w-p100(:src="item.url" @click="fnShowImgModal(item.url)")
+      el-button(size="small" @click="fnClearSearch") 清空
+  el-card.mt-20(v-loading="bIsListLoading" v-if="aImgList.length")
+    el-card.w-200.mr-10.mb-10.inbl(v-for="item in aImgList" :key="item.imgUrl")
+      .tlc.h-200.lh-200
+        img.max-w-p100.max-h-p100.vtal-md(:src="item.imgUrl" @click="fnShowImgModal(item.imgUrl)")
       .tlc.mt-5 {{ item.name }}
     .tlr.mt-10
       el-pagination(
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="oPageConf.page"
-        :page-sizes="[10, 20, 50, 100]"
+        :page-sizes="[12, 20, 50, 100]"
         :page-size="oPageConf.limit"
         layout="total, sizes, prev, pager, next, jumper"
         :total="oPageConf.total"
@@ -43,7 +44,7 @@ export default Vue.extend({
       bIsListLoading: false,
       keyWord: '',
       oPageConf: {
-        limit: 10,
+        limit: 12,
         page: 1,
         total: null
       }
@@ -57,6 +58,12 @@ export default Vue.extend({
   methods: {
     // ======================事件处理函数======================
     fnClickSearch() {
+      this.fnBsnSetQueryString();
+    },
+    fnClearSearch() {
+      this.oPageConf.limit = 12;
+      this.oPageConf.page = 1;
+      this.keyWord = '';
       this.fnBsnSetQueryString();
     },
     fnShowImgModal(url) {
@@ -95,8 +102,8 @@ export default Vue.extend({
       this.$dc.square
         .list({ data: oData })
         .then((res: any) => {
-          let result = res.result.data;
-          this.aImgList = res.imgList;
+          let result = res.data;
+          this.aImgList = result.imgs;
           this.oPageConf.total = result.total;
         })
         .catch(e => {})
@@ -108,7 +115,7 @@ export default Vue.extend({
     // =======================初始化函数=======================
     fnInitPageDate() {
       let oQuery = this.$route.query;
-      this.oPageConf.limit = +oQuery.limit || 10;
+      this.oPageConf.limit = +oQuery.limit || 12;
       this.oPageConf.page = +oQuery.page || 1;
       this.keyWord = oQuery.keyWord ? oQuery.keyWord.toString() : '';
       this.fnNetRImgList();

@@ -3,38 +3,103 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const translate = require('@vitalets/google-translate-api');
 const SquareModel = require('../models/square');
-const JSON = require('circular-json');
-const fs = require('fs');
-
-// translate.engine = 'google'
-// translate.key = 'AIzaSyADMIPqDA00tGhturx2L9GcHzjBXUYDjVg'
-// translate.from = 'ch'
 
 router.post('/api/square/list', async (ctx, next) => {
   let { page, limit, keyWord } = ctx.request.body; // keyWord => 'hah,lala,gaga'
-  let resTranslate = await translate(keyWord, { to: 'en', client: 'gtx' });
-  let resCrawl = await axios.get(`https://www.freeimages.com/search/${resTranslate.text}`);
-  let htmlString = resCrawl.data;
-  fs.writeFile('./res.md', htmlString.replace(/[\n]/g, ''));
-  const $ = cheerio.load(htmlString);
-  let pageLength = $('.pagesimple span')
-    .text()
-    .slice(1);
-  console.log(pageLength, 'pageLength');
-  let batchReq = 2;
+  let oTranslate = await translate(keyWord, { to: 'en', client: 'gtx' });
+  console.log(oTranslate.text);
+  let enKeyword = oTranslate.text.replace(/,?\s+/g, '-');
+  console.log(enKeyword);
+  let findKeywordInDB = await SquareModel.find({ keyWord: enKeyword }, { imgUrl: 1, _id: 0 })
+    .skip((page - 1) * limit)
+    .limit(limit)
+    .sort({ createdAt: -1 })
+    .exec();
+  if (findKeywordInDB.length) {
+    let total = await SquareModel.count({ keyWord: enKeyword });
+    ctx.body = {
+      data: { imgs: findKeywordInDB, total: total },
+      state: { msg: '获取成功' }
+    };
+  } else {
+    let imgUrls = [];
+    let isFetchError = false;
+    let resCrawl;
+    let pageLength;
+    let $;
+    let htmlString;
+    let firstPageImgUrl = [];
+    try {
+      let crawUrl = enKeyword ? `https://www.freeimages.com/search/${enKeyword}` : 'https://www.freeimages.com';
+      resCrawl = await axios.get(crawUrl);
+      htmlString = resCrawl.data;
+      $ = cheerio.load(htmlString);
+      pageLength = $('.pagesimple span')
+        .text()
+        .slice(1);
 
-  // let pageUrls =
-  // Promise.all([])
-  // for(let i = 0; i< times; i++) {
-  //   await
-  // }
-
-  let imgUrls = $('.thumbnail-rowgrid .item img').attr('src');
-  // $('.thumbnail-rowgrid .item')
-  ctx.body = {
-    data: { res: resTranslate },
-    state: { msg: '获取成功' }
-  };
+      $('.thumbnail-rowgrid .item img').each((i, ele) => {
+        firstPageImgUrl.push($(ele).attr('src'));
+      });
+      imgUrls.push(...firstPageImgUrl);
+      console.log(imgUrls, 'imgUrls');
+      if (!imgUrls.length) {
+        throw new Error('获取错误');
+      }
+    } catch (e) {
+      ctx.status = 500;
+      ctx.body = {
+        data: { res: '' },
+        state: { msg: `本次抓取有错误，请打开https://www.freeimages.com/search输入验证码后再进行搜索` }
+      };
+      return;
+    }
+    if (pageLength) {
+      // 好像每次加到最后一页的时候会出问题
+      for (let i = 2; i < +pageLength; i++) {
+        try {
+          let delayOneSec = new Promise((resolve, reject) => {
+            setTimeout(async () => {
+              let crawl = await axios.get(`https://www.freeimages.com/search/${enKeyword}/${i}`);
+              resolve(crawl);
+            }, 1000);
+          });
+          // let resCrawl = await axios.get(`https://www.freeimages.com/search/${enKeyword}/${i}`);
+          let resCrawl = await delayOneSec;
+          console.log(`https://www.freeimages.com/search/${enKeyword}/${i}`, +pageLength);
+          let htmlString = resCrawl.data;
+          let $ = cheerio.load(htmlString);
+          let pageImgUrls = [];
+          $('.thumbnail-rowgrid .item img').each((i, ele) => {
+            pageImgUrls.push($(ele).attr('src'));
+          });
+          imgUrls.push(...pageImgUrls);
+        } catch (e) {
+          isFetchError = true;
+        }
+      }
+    }
+    console.log(isFetchError, 'isFetchError');
+    if (!isFetchError) {
+      await SquareModel.insertMany(imgUrls.map(item => ({ keyWord: enKeyword, imgUrl: item })));
+      let res = await SquareModel.find({ keyWord: enKeyword })
+        .skip((page - 1) * limit)
+        .limit(limit)
+        .sort({ createdAt: -1 })
+        .exec();
+      let total = await SquareModel.count({ keyWord: enKeyword });
+      ctx.body = {
+        data: { imgs: res, total: total },
+        state: { msg: '获取成功' }
+      };
+    } else {
+      ctx.status = 500;
+      ctx.body = {
+        data: { res: '' },
+        state: { msg: `本次抓取有错误，请打开https://www.freeimages.com/search输入验证码后再进行搜索` }
+      };
+    }
+  }
 });
 
 module.exports = router;
