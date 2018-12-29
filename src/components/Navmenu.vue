@@ -23,8 +23,9 @@ el-menu.main-menu(
 </template>
 
 <script lang='ts'>
-import Vue from "vue";
-import { mapState } from "vuex";
+import Vue from 'vue';
+import cookies from 'browser-cookies';
+import { mapState } from 'vuex';
 
 export default Vue.extend({
   data() {
@@ -43,9 +44,11 @@ export default Vue.extend({
       this.$router.push(key);
     },
     logout() {
-      localStorage.removeItem("isLogin");
-      localStorage.removeItem("oUser");
-      this.$router.push("/login");
+      cookies.erase('binbinfang.sig');
+      cookies.erase('binbinfang');
+      localStorage.removeItem('isLogin');
+      localStorage.removeItem('oUser');
+      this.$router.push('/login');
     }
     // ======================业务逻辑函数======================
     // ========================纯函数=========================

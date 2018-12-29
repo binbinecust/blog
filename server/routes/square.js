@@ -16,7 +16,7 @@ router.post('/api/square/list', async (ctx, next) => {
     .sort({ createdAt: -1 })
     .exec();
   if (findKeywordInDB.length) {
-    let total = await SquareModel.count({ keyWord: enKeyword });
+    let total = await SquareModel.countDocuments({ keyWord: enKeyword });
     ctx.body = {
       data: { imgs: findKeywordInDB, total: total },
       state: { msg: '获取成功' }
@@ -87,7 +87,7 @@ router.post('/api/square/list', async (ctx, next) => {
         .limit(limit)
         .sort({ createdAt: -1 })
         .exec();
-      let total = await SquareModel.count({ keyWord: enKeyword });
+      let total = await SquareModel.countDocuments({ keyWord: enKeyword });
       ctx.body = {
         data: { imgs: res, total: total },
         state: { msg: '获取成功' }
