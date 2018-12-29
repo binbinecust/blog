@@ -7,7 +7,7 @@ div
     list-type="picture-card"
     :show-file-list="false"
     :on-success="handleSuccess"
-    :data="{userId: userId, name: name}"
+    :data="{name: name}"
   )
     i.el-icon-plus
   el-card.mt-50(v-if="aImgList.length")
@@ -36,7 +36,6 @@ div
 
 <script lang='ts'>
 import Vue from 'vue';
-import { mapState } from 'vuex';
 
 export default Vue.extend({
   data() {
@@ -51,13 +50,6 @@ export default Vue.extend({
         total: null
       }
     };
-  },
-  computed: {
-    ...mapState({
-      userId(state: any) {
-        return state.oUser.id;
-      }
-    })
   },
   methods: {
     // ======================事件处理函数======================
@@ -86,8 +78,7 @@ export default Vue.extend({
     fnNetRAlbumList() {
       let oData = {
         limit: this.oPageConf.limit,
-        page: this.oPageConf.page,
-        userId: this.userId
+        page: this.oPageConf.page
       };
       this.$dc.album
         .list({ data: oData })

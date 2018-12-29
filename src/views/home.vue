@@ -34,7 +34,6 @@
 
 <script lang='ts'>
 import Vue from 'vue';
-import { mapState } from 'vuex';
 
 export default Vue.extend({
   data() {
@@ -79,7 +78,6 @@ export default Vue.extend({
     },
     publish() {
       let oData = {
-        userId: this.userId,
         content: this.content
       };
       this.$dc.daily
@@ -107,13 +105,6 @@ export default Vue.extend({
         })
         .catch(e => {});
     }
-  },
-  computed: {
-    ...mapState({
-      userId(state: any) {
-        return state.oUser.id;
-      }
-    })
   },
   mounted() {
     this.fnNetRDailyList();

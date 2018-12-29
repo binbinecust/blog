@@ -87,7 +87,6 @@ export default Vue.extend({
     fnNetUSave() {
       this.isSaving = true;
       let oData = {
-        name: this.oUser.name,
         tel: this.oForm.tel,
         email: this.oForm.email,
         password: this.oForm.password,

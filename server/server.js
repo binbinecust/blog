@@ -53,7 +53,7 @@ app.use(async (ctx, next) => {
         return;
       }
       let { userId } = decode;
-      ctx.request.body._id = userId;
+      ctx.request.body.userId = userId;
     });
   }
   await next();

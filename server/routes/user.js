@@ -72,15 +72,15 @@ router.post('/api/login', async (ctx, next) => {
 });
 
 router.post('/api/save', async (ctx, netx) => {
-  let { password, email, tel, avatar, name } = ctx.request.body;
-  let doc = { email, tel, avatar, name };
+  let { password, email, tel, avatar, userId } = ctx.request.body;
+  let doc = { email, tel, avatar };
   if (password) {
     const salt = await bcrypt.genSalt(10);
     password = await bcrypt.hash(password, salt);
     doc.password = password;
   }
-  await UserModel.updateOne({ name }, doc);
-  const user = await UserModel.findOne({ name });
+  await UserModel.updateOne({ _id: userId }, doc);
+  const user = await UserModel.findOne({ _id: userId });
   ctx.body = {
     data: {
       user: {

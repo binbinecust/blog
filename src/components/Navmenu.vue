@@ -44,7 +44,6 @@ export default Vue.extend({
       this.$router.push(key);
     },
     logout() {
-      cookies.erase('binbinfang.sig');
       cookies.erase('binbinfang');
       localStorage.removeItem('isLogin');
       localStorage.removeItem('oUser');

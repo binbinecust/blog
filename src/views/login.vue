@@ -23,65 +23,56 @@
 </template>
 
 <script lang='ts'>
-import Vue from "vue";
-import { mapState } from "vuex";
+import Vue from 'vue';
 
 export default Vue.extend({
   data() {
     const checkName = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error("请输入用户名"));
+        return callback(new Error('请输入用户名'));
       } else {
         if (!/^[a-zA-Z]{1}([a-zA-Z0-9]|[._]){4,19}$/.test(value)) {
-          return callback(
-            new Error("只能输入5-20个以字母开头、可带数字、“_”、“.”的字符串")
-          );
+          return callback(new Error('只能输入5-20个以字母开头、可带数字、“_”、“.”的字符串'));
         }
         return callback();
       }
     };
     const checkEmail = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error("请输入邮箱"));
+        return callback(new Error('请输入邮箱'));
       } else {
-        if (
-          !/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/.test(
-            value
-          )
-        ) {
-          return callback(new Error("邮箱格式不正确，请重新输入"));
+        if (!/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/.test(value)) {
+          return callback(new Error('邮箱格式不正确，请重新输入'));
         }
         return callback();
       }
     };
     const checkTel = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error("请输入电话号码"));
+        return callback(new Error('请输入电话号码'));
       } else {
         if (!/\d{11}/.test(value)) {
-          return callback(new Error("请输入11位数字"));
+          return callback(new Error('请输入11位数字'));
         }
         return callback();
       }
     };
     const checkPassword = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error("请输入密码"));
+        return callback(new Error('请输入密码'));
       } else {
         if (!/^(\w){6,20}$/.test(value)) {
-          return callback(
-            new Error("请输入只能输入6-20个字母、数字、下划线密码")
-          );
+          return callback(new Error('请输入只能输入6-20个字母、数字、下划线密码'));
         }
         return callback();
       }
     };
     const checkDulPassword = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error("请输入校验密码"));
+        return callback(new Error('请输入校验密码'));
       } else {
-        if (value !== this["oForm"]["password"]) {
-          return callback(new Error("两次输入不相同，请重新输入，小傻瓜"));
+        if (value !== this['oForm']['password']) {
+          return callback(new Error('两次输入不相同，请重新输入，小傻瓜'));
         }
         return callback();
       }
@@ -89,13 +80,13 @@ export default Vue.extend({
     return {
       isLoginLoading: false,
       isRegLoading: false,
-      activeTab: "login",
+      activeTab: 'login',
       oForm: {
-        name: "",
-        email: "",
-        tel: "",
-        password: "",
-        dulPassword: ""
+        name: '',
+        email: '',
+        tel: '',
+        password: '',
+        dulPassword: ''
       },
       oFormRule: {
         name: [{ validator: checkName }],
@@ -106,24 +97,17 @@ export default Vue.extend({
       }
     };
   },
-  computed: {
-    ...mapState({
-      oUser: (state: any) => {
-        return state.oUser;
-      }
-    })
-  },
   methods: {
     // ======================事件处理函数======================
     fnClickRegiste() {
-      this.$refs["oForm"]["validate"](valid => {
+      this.$refs['oForm']['validate'](valid => {
         if (valid) {
           this.isRegLoading = true;
           this.$dc.user
             .signup({ data: this.oForm })
             .then((res: any) => {
               this.$message.success(res.state.msg);
-              this.activeTab = "login";
+              this.activeTab = 'login';
             })
             .catch(err => {
               this.$message.error(err.response.data.state.msg);
@@ -134,14 +118,14 @@ export default Vue.extend({
     },
     fnClickLogin() {
       let { name, password } = this.oForm;
-      this.$refs["oForm"]["validate"](valid => {
+      this.$refs['oForm']['validate'](valid => {
         if (valid) {
           this.isLoginLoading = true;
           this.$store
-            .dispatch("loginAct", { data: { name, password } })
+            .dispatch('loginAct', { data: { name, password } })
             .then(res => {
               this.$message.success(res.state.msg);
-              this.$router.push({ path: "/home" });
+              this.$router.push({ path: '/home' });
               this.isLoginLoading = false;
             })
             .catch(err => {
@@ -161,8 +145,7 @@ export default Vue.extend({
 
 <style lang='scss'>
 .login .bg {
-  background: url(https://cn.bing.com/az/hprichbg/rb/YosemiteBridge_ZH-CN10163806053_1920x1080.jpg)
-    no-repeat;
+  background: url(https://cn.bing.com/az/hprichbg/rb/YosemiteBridge_ZH-CN10163806053_1920x1080.jpg) no-repeat;
   background-size: cover;
 }
 .login .el-form-item__label {
