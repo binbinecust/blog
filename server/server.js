@@ -6,7 +6,6 @@ const onerror = require('koa-onerror');
 const koastatic = require('koa-static');
 const cors = require('@koa/cors');
 const mongoose = require('mongoose');
-const session = require('koa-session');
 const path = require('path');
 const koaBody = require('koa-body');
 const jwt = require('jsonwebtoken');
@@ -20,10 +19,7 @@ const app = new Koa();
 onerror(app);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
-mongoose.connect(
-  dbconfig.mongodb,
-  { useNewUrlParser: true }
-);
+mongoose.connect(dbconfig.mongodb, { useNewUrlParser: true });
 app.use(cors());
 
 app.use(

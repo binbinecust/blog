@@ -1,0 +1,13 @@
+prod:
+  only:
+    - tags
+  tags:
+    - blog-runner-tag
+  script:
+    - npm install
+    - npm run build
+    - npm run deploy-prod
+    - TIME_STAMP=$(date +"%Y%m%d%H%M%S")
+    - FILE_NAME=$TIME_STAMP-$CI_BUILD_TAG-${CI_BUILD_REF:0:6}
+    - tar -czf $FILE_NAME.tar.gz ./dist
+    - mv $FILE_NAME.tar.gz /global/release/xadmin/
