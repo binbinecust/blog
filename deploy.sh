@@ -1,1 +1,1 @@
-sudo scp -r dist/* root@39.96.173.235:/web/blog
+scp -r dist/* root@$DEPLOY_SERVER_DEV:$WEB_DIR
