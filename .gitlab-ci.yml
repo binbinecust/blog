@@ -4,7 +4,7 @@ prod:
   tags:
     - blog-runner-tag
   script:
-    - npm install
+    - sudo npm install
     - npm run build
     - npm run deploy-prod
     - TIME_STAMP=$(date +"%Y%m%d%H%M%S")
