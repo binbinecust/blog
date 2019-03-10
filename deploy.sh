@@ -1,1 +1,1 @@
-scp -r dist/* root@39.96.173.235:/web/blog
+sudo scp -r dist/* root@39.96.173.235:/web/blog
