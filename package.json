@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "deploy-prod": "./deploy.sh"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -41,12 +42,7 @@
     "env": {
       "node": true
     },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended",
-      "@vue/standard",
-      "@vue/typescript"
-    ],
+    "extends": ["plugin:vue/essential", "eslint:recommended", "@vue/standard", "@vue/typescript"],
     "rules": {},
     "parserOptions": {
       "parser": "babel-eslint"
@@ -58,9 +54,5 @@
       "autoprefixer": {}
     }
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ]
+  "browserslist": ["> 1%", "last 2 versions", "not ie <= 8"]
 }
