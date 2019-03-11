@@ -6,7 +6,6 @@ prod:
   script:
     - sudo npm install
     - npm run build
-    - ssh root@$DEPLOY_SERVER_DEV
     - scp -r dist/* root@$DEPLOY_SERVER_DEV:$WEB_DIR
     - TIME_STAMP=$(date +"%Y%m%d%H%M%S")
     - FILE_NAME=$TIME_STAMP-$CI_BUILD_TAG-${CI_BUILD_REF:0:6}
