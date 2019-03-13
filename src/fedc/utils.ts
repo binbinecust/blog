@@ -6,7 +6,6 @@ import axios from 'axios';
 
 // 用法：https://github.com/pillarjs/path-to-regexp
 import pathToRegExp from 'path-to-regexp';
-import { debug } from 'util';
 
 const vm = new Vue();
 /**

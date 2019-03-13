@@ -1,15 +1,15 @@
+/* eslint-disable */
 export default class BaseAPI {
   // 创建 类型的请求，对应的 URL
-  // eslint-disable-next-line
-  sCreateUrl?: string
+  sCreateUrl?: string;
   // 获取 类型的请求，对应的 URL
-  sRetrieveUrl?: string
+  sRetrieveUrl?: string;
   // 更新 类型的请求，对应的 URL
-  sUpdateUrl?: string
+  sUpdateUrl?: string;
   // 删除 类型的请求，对应的 URL
-  sDeleteUrl?: string
+  sDeleteUrl?: string;
   // 列表 类型的请求，对应的 URL
-  sListUrl?: string
+  sListUrl?: string;
 
   // 创建 类型的请求，对应的操作，返回 promise 实例
   create() {}
