@@ -18,6 +18,6 @@ prod:
     - mv dist client
     - ssh root@$DEPLOY_SERVER_DEV
     - rm -rf /web/blog/*
-    - scp -r client ../server ../nginx.conf root@$DEPLOY_SERVER_DEV:$WEB_DIR
+    - scp -r client ../server ../nginx.conf ../pm2.json root@$DEPLOY_SERVER_DEV:$WEB_DIR
     - TIME_STAMP=$(date +"%Y%m%d%H%M%S")
     - FILE_NAME=$TIME_STAMP-$CI_BUILD_TAG-${CI_BUILD_REF:0:6}
