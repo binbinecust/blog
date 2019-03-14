@@ -1,1 +1,0 @@
-scp -r dist/* root@$DEPLOY_SERVER_DEV:$WEB_DIR

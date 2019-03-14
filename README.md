@@ -1,5 +1,13 @@
 # blog
 
+## 纯手工博客系统 
+
+## 技术栈
+
+## 前端 后端 （待完善）
+
+## 前端 client 
+
 ## Project setup
 ```
 npm install

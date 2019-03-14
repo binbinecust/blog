@@ -12,10 +12,12 @@ prod:
     - ssh-keyscan gitlab.com >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
   script:
+    - cd client
     - sudo npm install
     - npm run build
-    - cp nginx.conf dist
-    - scp -r dist/* root@$DEPLOY_SERVER_DEV:$WEB_DIR
+    - mv dist client
+    - cp ../nginx.conf /nginx.conf
+    - scp -r client ../server root@$DEPLOY_SERVER_DEV:$WEB_DIR
     - TIME_STAMP=$(date +"%Y%m%d%H%M%S")
     - FILE_NAME=$TIME_STAMP-$CI_BUILD_TAG-${CI_BUILD_REF:0:6}
     - tar -czf $FILE_NAME.tar.gz ./dist
