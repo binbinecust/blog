@@ -12,7 +12,7 @@ router.post('/api/signup', async (ctx, next) => {
       email,
       tel,
       password,
-      avatar: 'http://localhost:9999/avatar/qyc.jpeg'
+      avatar: 'http://localhost:7000/avatar/qyc.jpeg'
     });
     ctx.body = {
       result: {
@@ -52,7 +52,7 @@ router.post('/api/login', async (ctx, next) => {
             tel: user.tel,
             email: user.email,
             isAdmin: user.isAdmin,
-            avatar: user.avatar || 'http://localhost:9999/qyc.jpeg'
+            avatar: user.avatar || 'http://localhost:7000/qyc.jpeg'
           }
         },
         state: {

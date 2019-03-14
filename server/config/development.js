@@ -1,4 +1,4 @@
-const port = Number.parseInt(process.env.PORT) || 9999
+const port = Number.parseInt(process.env.PORT) || 7000;
 
 module.exports = {
   port: port,
@@ -6,4 +6,4 @@ module.exports = {
   serveStatic: true,
   assetHost: '',
   redisUrl: 'redis://localhost:6379/1'
-}
+};
