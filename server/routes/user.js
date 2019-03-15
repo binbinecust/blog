@@ -16,7 +16,13 @@ router.post('/api/signup', async (ctx, next) => {
     });
     ctx.body = {
       result: {
-        data: result
+        data: {
+          name: result.name,
+          userId: result._id,
+          email: result.email,
+          tel: result.tel,
+          avatar: result.avatar
+        }
       },
       state: {
         msg: '注册成功啦，恭喜哈'

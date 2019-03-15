@@ -40,6 +40,7 @@ app.keys = ['mengxi'];
 
 app.use(async (ctx, next) => {
   let rawCookie = ctx.cookies.request.headers.cookie;
+  console.log(ctx.request, 'ctx.request');
   if (rawCookie) {
     const verifySecret = fs.readFileSync(path.resolve(__dirname, './rsa_public_key.pem'));
     let token = rawCookie.split('=')[1];
@@ -55,7 +56,7 @@ app.use(async (ctx, next) => {
   await next();
   if (!rawCookie) {
     const signSecret = fs.readFileSync(path.resolve(__dirname, './rsa_private_key.pem'));
-    const token = jwt.sign({ userId: JSON.parse(ctx.body).data.user.id }, signSecret, { expiresIn: '2 days', algorithm: 'RS256' });
+    const token = jwt.sign({ userId: JSON.parse(ctx.body).result.data.userId }, signSecret, { expiresIn: '2 days', algorithm: 'RS256' });
     let options = {
       maxAge: 7 * 24 * 60 * 60 * 1000,
       signed: false,
