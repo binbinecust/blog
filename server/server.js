@@ -79,7 +79,7 @@ app.use(async (ctx, next) => {
 
 app.use(koaJson());
 app.use(logger());
-app.use(koastatic(path.resolve(__dirname, process.env === 'development' ? 'assets' : '../assets')));
+app.use(koastatic(path.resolve(__dirname, '../')));
 
 app.use(async (ctx, next) => {
   const start = new Date();
