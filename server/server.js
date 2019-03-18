@@ -56,7 +56,7 @@ app.use(async (ctx, next) => {
   await next();
   if (!rawCookie) {
     const signSecret = fs.readFileSync(path.resolve(__dirname, './rsa_private_key.pem'));
-    let userId = JSON.parse(ctx.body).result ? JSON.parse(ctx.body).result.data.userId : JSON.parse(ctx.body).user.id;
+    let userId = JSON.parse(ctx.body).result ? JSON.parse(ctx.body).result.data.userId : JSON.parse(ctx.body).data.user.id;
     const token = jwt.sign({ userId }, signSecret, { expiresIn: '2 days', algorithm: 'RS256' });
     let options = {
       maxAge: 7 * 24 * 60 * 60 * 1000,
@@ -80,7 +80,7 @@ app.use(async (ctx, next) => {
 
 app.use(koaJson());
 app.use(logger());
-app.use(koastatic(path.resolve(__dirname, '../')));
+// app.use(koastatic(path.resolve(__dirname, '../')));
 
 app.use(async (ctx, next) => {
   const start = new Date();
