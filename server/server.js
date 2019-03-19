@@ -19,7 +19,30 @@ const app = new Koa();
 onerror(app);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
-mongoose.connect(dbconfig.mongodb, { useNewUrlParser: true });
+// mongoose.connect(DB_HOST, //mongodb://mongodb:27017/mydb
+//   {
+//       user:
+//       pass: DB_PASSWORD, //password
+//       auth: {
+//           authdb: DB_AUTHDB //admin
+//       },
+//       autoIndex: NODE_ENV === 'dev',
+//       useNewUrlParser: true,
+//       reconnectTries: Number.MAX_VALUE,
+//       reconnectInterval: 500, // Reconnect every 500ms
+//       poolSize: 10 // Maintain up to 10 socket connections
+//   }
+// );
+mongoose.connect(dbconfig.mongodb, {
+  useNewUrlParser: true,
+  user: 'fangbinbin',
+  pass: 157248,
+  auth: { authdb: admin },
+  autoIndex: NODE_ENV === 'dev',
+  reconnectTries: Number.MAX_VALUE,
+  reconnectInterval: 1000,
+  poolSize: 10
+});
 app.use(cors());
 
 app.use(
