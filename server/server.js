@@ -37,7 +37,6 @@ mongoose.connect(dbconfig.mongodb, {
   useNewUrlParser: true,
   user: 'fangbinbin',
   pass: 157248,
-  auth: { authdb: admin },
   autoIndex: NODE_ENV === 'dev',
   reconnectTries: Number.MAX_VALUE,
   reconnectInterval: 1000,
