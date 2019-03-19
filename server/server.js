@@ -36,8 +36,7 @@ mongoose.set('useCreateIndex', true);
 mongoose.connect(dbconfig.mongodb, {
   useNewUrlParser: true,
   user: 'fangbinbin',
-  pass: 157248,
-  autoIndex: NODE_ENV === 'dev',
+  pass: '157248',
   reconnectTries: Number.MAX_VALUE,
   reconnectInterval: 1000,
   poolSize: 10
