@@ -15,6 +15,24 @@
       },
       "log_date_format": "YYYY-MM-DD_HH:mm Z",
       "merge_logs": true
+    },
+    {
+      "name": "cloud-time",
+      "cwd": "/web/cloud-time/",
+      "script": "/web/cloud-time/server/index.js",
+      "args": "['cross-env']",
+      "instances": "1",
+      "exec_mode": "cluster",
+      "env": {
+        "NODE_ENV": "development",
+        "PORT": 8000
+      },
+      "env_production": {
+        "NODE_ENV": "production",
+        "PORT": 8000
+      },
+      "log_date_format": "YYYY-MM-DD_HH:mm Z",
+      "merge_logs": true
     }
   ]
 }

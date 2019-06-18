@@ -1,5 +1,27 @@
 const router = require('koa-router')();
 const axios = require('axios');
+const superagent = require('superagent');
+const requestProxy = require('superagent-proxy');
+const userAgents = require('../config/userAgents');
+
+requestProxy(superagent);
+let myMacIP = 'http://10.0.114.49';
+
+async function doRequest(url) {
+  let userAgent = userAgents[parseInt(Math.random() * userAgents.length)];
+  console.log(userAgent);
+  try {
+    return await superagent
+      .get(url)
+      .set({ 'User-Agent': userAgent })
+      .proxy(myMacIP);
+  } catch (e) {
+    console.log(e);
+  }
+  // .end(async (err, res) => {
+  //   // 处理数据
+  // });
+}
 const cheerio = require('cheerio');
 const translate = require('@vitalets/google-translate-api');
 const SquareModel = require('../models/square');
@@ -31,7 +53,9 @@ router.post('/api/square/list', async (ctx, next) => {
     let firstPageImgUrl = [];
     try {
       let crawUrl = enKeyword ? `https://www.freeimages.com/search/${enKeyword}` : 'https://www.freeimages.com';
-      resCrawl = await axios.get(crawUrl);
+      console.log('is ok');
+      resCrawl = await doRequest(crawUrl);
+      console.log(resCrawl, 'resCrawl');
       htmlString = resCrawl.data;
       $ = cheerio.load(htmlString);
       pageLength = $('.pagesimple span')
