@@ -145,8 +145,8 @@ export default Vue.extend({
 
 <style lang='scss'>
 .login .bg {
-  background: url(https://cn.bing.com/az/hprichbg/rb/YosemiteBridge_ZH-CN10163806053_1920x1080.jpg) no-repeat;
-  background-size: cover;
+  background: url('https://w.wallhaven.cc/full/dg/wallhaven-dgegxl.jpg') no-repeat;
+  background-size: 100% 100%;
 }
 .login .el-form-item__label {
   color: white;
