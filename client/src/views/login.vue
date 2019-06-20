@@ -90,8 +90,8 @@ export default Vue.extend({
       },
       oFormRule: {
         name: [{ validator: checkName }],
-        // email: [{validator: checkEmail}],
-        // tel: [{validator: checkEmail}],
+        email: [{ validator: checkEmail }],
+        tel: [{ validator: checkEmail }],
         password: [{ validator: checkPassword }],
         dulPassword: [{ validator: checkDulPassword }]
       }

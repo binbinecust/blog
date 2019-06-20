@@ -98,7 +98,9 @@ export default Vue.extend({
           this.$store.commit('loginMut', res.data.user);
           this.$message.success(res.state.msg);
         })
-        .catch(err => {})
+        .catch(err => {
+          console.error(err);
+        })
         .done(() => (this.isSaving = false));
     },
     // =======================初始化函数=======================
