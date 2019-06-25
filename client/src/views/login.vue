@@ -145,7 +145,7 @@ export default Vue.extend({
 
 <style lang='scss'>
 .login .bg {
-  background: url('https://w.wallhaven.cc/full/dg/wallhaven-dgegxl.jpg') no-repeat;
+  background: url('https://www.bibidaodao.cn/assets/album/bg.jpg') no-repeat;
   background-size: 100% 100%;
 }
 .login .el-form-item__label {
