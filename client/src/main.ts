@@ -8,13 +8,9 @@ import { Message } from 'element-ui';
 import VueQuillEditor from 'vue-quill-editor';
 
 // require styles
-import 'quill/dist/quill.core.css';
-import 'quill/dist/quill.snow.css';
-import 'quill/dist/quill.bubble.css';
-
-import 'vue-awesome/icons';
-import Icon from 'vue-awesome/components/Icon.vue';
-Vue.component('v-icon', Icon);
+// import 'quill/dist/quill.core.css';
+// import 'quill/dist/quill.snow.css';
+// import 'quill/dist/quill.bubble.css';
 
 Vue.config.productionTip = false;
 Vue.use(oFedc);
@@ -43,7 +39,6 @@ router.beforeEach((to, from, next) => {
       });
       // iViewUi友好提示
       // tslint-disable-next-line
-      Message.error('请先登录');
       // 用户进入无需登录的界面，则跳转继续
     } else {
       next();

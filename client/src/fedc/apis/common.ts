@@ -2,14 +2,10 @@ import BaseAPI from '../base';
 import fnPureProcessResourceData from '../utils';
 
 class Daily extends BaseAPI {
-  sThumbedUserListUrl: string;
-  sThumbUrl: string;
   constructor() {
     super();
     this.sListUrl = '/api/daily/list'; // 日记列表
     this.sCreateUrl = '/api/daily/create'; // 创建日记
-    this.sThumbedUserListUrl = '/api/daily/thumbedUserList'; // 点赞人员id列表
-    this.sThumbUrl = '/api/daily/thumb'; // 点赞与取消点赞
   }
 
   list(option = {}) {
@@ -23,22 +19,6 @@ class Daily extends BaseAPI {
   create(option = {}) {
     return fnPureProcessResourceData({
       url: this.sCreateUrl,
-      method: 'post',
-      ...option
-    });
-  }
-
-  thumbedUserList(option = {}) {
-    return fnPureProcessResourceData({
-      url: this.sThumbedUserListUrl,
-      method: 'post',
-      ...option
-    });
-  }
-
-  thumb(option = {}) {
-    return fnPureProcessResourceData({
-      url: this.sThumbUrl,
       method: 'post',
       ...option
     });

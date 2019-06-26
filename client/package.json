@@ -9,16 +9,14 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "browser-cookies": "^1.2.0",
     "element-ui": "^2.4.5",
+    "js-cookie": "^2.2.0",
     "vue": "^2.5.17",
-    "vue-awesome": "^3.4.0",
     "vue-quill-editor": "^3.0.6",
-    "vue-router": "^3.0.1",
+    "vue-router": "^3.0.6",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
-    "graceful-fs": "^4.1.15",
     "@types/node": "^10.12.12",
     "@vue/cli-plugin-babel": "^3.2.0",
     "@vue/cli-plugin-eslint": "^3.2.1",
@@ -29,6 +27,7 @@
     "compression-webpack-plugin": "^3.0.0",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0-0",
+    "graceful-fs": "^4.1.15",
     "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",
     "ts-loader": "^5.3.1",
@@ -36,19 +35,15 @@
     "uglifyjs-webpack-plugin": "^2.1.3",
     "vue-cli-plugin-element": "^1.0.0",
     "vue-cli-plugin-pug": "^1.0.7",
-    "vue-template-compiler": "^2.5.17"
+    "vue-template-compiler": "^2.5.17",
+    "webpack-cli": "^3.3.5"
   },
   "eslintConfig": {
     "root": true,
     "env": {
       "node": true
     },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended",
-      "@vue/standard",
-      "@vue/typescript"
-    ],
+    "extends": ["plugin:vue/essential", "eslint:recommended", "@vue/standard", "@vue/typescript"],
     "rules": {},
     "parserOptions": {
       "parser": "babel-eslint"
@@ -60,9 +55,5 @@
       "autoprefixer": {}
     }
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ]
+  "browserslist": ["> 1%", "last 2 versions", "not ie <= 8"]
 }

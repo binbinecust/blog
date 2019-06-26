@@ -17,9 +17,6 @@
       el-tab-pane(label="我关心的" name="care")
       el-card.mb-10(v-for="item in aActiveDaily")
         div(v-html="item")
-        .tlr(@click="fnThumb")
-          v-icon.mr-10(name="regular/thumbs-up" scale="1" v-if="!isThumbed")
-          v-icon(name="thumbs-up" scale="1" v-else) {{thumbedUp.length}}
       .tlr.mt-10
         el-pagination(
           @size-change="handleSizeChange"
@@ -45,8 +42,6 @@ export default Vue.extend({
       aActiveDaily: <any>[],
       allDaily: <any>[],
       content: '',
-      isThumbed: false,
-      thumbedUp: <any>[],
       editorOption: {
         // some quill options
       },
@@ -78,15 +73,6 @@ export default Vue.extend({
       this.oPageConf.page = page;
       this.fnNetRDailyList();
     },
-    fnThumb() {
-      let oData = {
-        pos: !this.isThumbed
-      };
-      this.$dc.daily
-        .thumb(oData)
-        .then((res: any) => {})
-        .catch(e => {});
-    },
     publish() {
       let oData = {
         content: this.content
@@ -115,14 +101,10 @@ export default Vue.extend({
           this.oPageConf.total = result.total;
         })
         .catch(e => {});
-    },
-    fnNetRThumbedUser() {
-      let oData = {};
     }
   },
   mounted() {
     this.fnNetRDailyList();
-    // this.fnNetRThumbedUser();
   }
 });
 </script>

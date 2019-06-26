@@ -24,7 +24,7 @@ el-menu.main-menu(
 
 <script lang='ts'>
 import Vue from 'vue';
-import cookies from 'browser-cookies';
+import cookies from 'js-cookie';
 import { mapState } from 'vuex';
 
 export default Vue.extend({
@@ -44,7 +44,7 @@ export default Vue.extend({
       this.$router.push(key);
     },
     logout() {
-      cookies.erase('binbinfang');
+      cookies.remove('binbinfang');
       localStorage.removeItem('isLogin');
       localStorage.removeItem('oUser');
       this.$router.push('/login');
