@@ -1,6 +1,7 @@
 const router = require('koa-router')();
 const fs = require('fs');
 const AlbumModel = require('../models/album');
+const path = require('path');
 
 router.post('/api/upload', async (ctx, next) => {
   console.log(ctx.request.body);
@@ -12,9 +13,9 @@ router.post('/api/upload', async (ctx, next) => {
   let filename = `${Math.random()
     .toString(36)
     .substr(2)}.${ext}`;
-  const upStream = fs.createWriteStream(`../assets/${isAlbumPost ? 'album' : 'avatar'}/${filename}`); // 创建可写流
+  const upStream = fs.createWriteStream(path.resolve(__dirname, '../../../') + `/assets/${isAlbumPost ? 'album' : 'avatar'}/${filename}`); // 创建可写流
   reader.pipe(upStream); // 可读流通过管道写入可写流
-  let url = `http://39.96.173.235:8080/assets/${isAlbumPost ? 'album' : 'avatar'}/${filename}`;
+  let url = `https://www.bibidaodao.cn/assets/${isAlbumPost ? 'album' : 'avatar'}/${filename}`;
   if (isAlbumPost) {
     let userId = ctx.request.body.userId;
 

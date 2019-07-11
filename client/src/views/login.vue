@@ -2,20 +2,20 @@
 .pst-rlt.h-p100.login
   .pst-absl.t-0.l-0.b-0.r-0.bg
     .w-500.color-white.vh
-      el-tabs(v-model="activeTab")
+      el-tabs(v-model="activeTab" @tab-click="resetInputs")
         el-tab-pane(label="登录" name="login")
         el-tab-pane(label="注册" name="register")
       el-form(:model="oForm" size="small" label-width="100px" :rules="oFormRule" ref="oForm")
-        el-form-item(label="用户名：" prop="name")
+        el-form-item(label="用户名：" prop="name" key="name")
           el-input(v-model="oForm.name" placeholder="请输入用户名")
-        el-form-item(label="邮箱：" v-if="activeTab === 'register'" prop="email")
+        el-form-item(label="邮箱：" v-if="activeTab === 'register'" prop="email" key="email")
           el-input(v-model="oForm.email" placeholder="请输入邮箱")
-        el-form-item(label="手机：" v-if="activeTab === 'register'" prop="tel")
-          el-input(v-model="oForm.tel" placeholder="请输入手机号")
-        el-form-item(label="密码：" prop="password")
+        el-form-item(label="手机：" v-if="activeTab === 'register'" prop="tel" key="tel")
+          el-input(v-model="oForm.tel" placeholder="请输入手机号" key="tel-input")
+        el-form-item(label="密码：" prop="password" key='password')
           el-input(v-model="oForm.password" placeholder="请输入密码" type="password")
-        el-form-item(label="确认密码：" v-if="activeTab === 'register'" prop="dulPassword")
-          el-input(v-model="oForm.dulPassword" placeholder="请确认密码" type="password")
+        el-form-item(label="确认密码：" v-if="activeTab === 'register'" prop="dulPassword" key="dulPassword")
+          el-input(v-model="oForm.dulPassword" placeholder="请确认密码" type="password" key='dulPassword-input')
         el-form-item
           .tlc
             el-button(type="primary" size="small" @click="fnClickLogin" v-if="activeTab === 'login'" :loading="isLoginLoading") 登录
@@ -51,7 +51,7 @@ export default Vue.extend({
       if (!value) {
         return callback(new Error('请输入电话号码'));
       } else {
-        if (!/\d{11}/.test(value)) {
+        if (!/^1\d{10}$/.test(value)) {
           return callback(new Error('请输入11位数字'));
         }
         return callback();
@@ -91,7 +91,7 @@ export default Vue.extend({
       oFormRule: {
         name: [{ validator: checkName }],
         email: [{ validator: checkEmail }],
-        tel: [{ validator: checkEmail }],
+        tel: [{ validator: checkTel }],
         password: [{ validator: checkPassword }],
         dulPassword: [{ validator: checkDulPassword }]
       }
@@ -99,6 +99,17 @@ export default Vue.extend({
   },
   methods: {
     // ======================事件处理函数======================
+    resetInputs() {
+      if (this.activeTab === 'register') {
+        this.oForm = {
+          name: '',
+          email: '',
+          tel: '',
+          password: '',
+          dulPassword: ''
+        };
+      }
+    },
     fnClickRegiste() {
       this.$refs['oForm']['validate'](valid => {
         if (valid) {

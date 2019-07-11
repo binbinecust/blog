@@ -64,7 +64,7 @@ app.use(async (ctx, next) => {
   console.log(ctx.request, 'ctx.request');
   let userId;
   if (rawCookie) {
-    const verifySecret = fs.readFileSync(path.resolve(__dirname, './rsa_public_key.pem'));
+    const verifySecret = fs.readFileSync(path.resolve(__dirname, '../../assets/cert/rsa_public_key.pem'));
     let token = rawCookie.split('=')[1];
     jwt.verify(token, verifySecret, { algorithms: ['RS256'] }, (e, decode) => {
       if (e) {
@@ -77,7 +77,7 @@ app.use(async (ctx, next) => {
   }
   await next();
   if (!rawCookie) {
-    const signSecret = fs.readFileSync(path.resolve(__dirname, './rsa_private_key.pem'));
+    const signSecret = fs.readFileSync(path.resolve(__dirname, '../../assets/cert/rsa_private_key.pem'));
     console.log(JSON.parse(ctx.body), 'ctx.body.test');
     if (JSON.parse(ctx.body).result) {
       userId = JSON.parse(ctx.body).result.data.userId;
